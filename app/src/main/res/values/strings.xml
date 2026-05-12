@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Our Family</string>
+    <string name="schedule">Расписание</string>
+    <string name="tasks">Задания</string>
+    <string name="family">Семья</string>
+    <string name="add_event">Добавить событие</string>
+    <string name="add_task">Добавить задание</string>
+    <string name="add_reward">Добавить награду</string>
+    <string name="add_family_member">Добавить члена семьи</string>
+    <string name="calendar">Календарь</string>
+    <string name="profile">Профиль</string>
+    <string name="create_calendar">Создать календарь</string>
+    <string name="select_date">Выбрать дату</string>
+    <string name="today">Сегодня</string>
+    <string name="events">События</string>
+    <string name="no_events">Нет событий</string>
+    <string name="points">Очки</string>
+    <string name="completed_tasks">Выполнено заданий</string>
+    <string name="claimed_rewards">Получено наград</string>
+    <string name="my_calendars">Мои календари</string>
+    <string name="sync_settings">Настройки синхронизации</string>
+    <string name="auto_sync">Автосинхронизация</string>
+    <string name="sync_now">Синхронизировать сейчас</string>
+    <string name="last_sync">Последняя синхронизация</string>
+    <string name="never">никогда</string>
+    <string name="default_calendar">По умолчанию</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="create">Создать</string>
+    <string name="calendar_name">Название календаря</string>
+    <string name="select_color">Выберите цвет</string>
+</resources>

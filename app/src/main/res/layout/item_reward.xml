@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="220dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_reward"
+        android:padding="12dp">
+
+        <!-- Кнопка удаления -->
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@android:drawable/ic_menu_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Удалить"
+            android:visibility="gone"
+            app:tint="@android:color/white" />
+
+        <!-- Название награды -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Награда"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Описание -->
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:text="Описание"
+            android:textSize="12sp"
+            android:textColor="#CCFFFFFF"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Стоимость -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#FFD700"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="очков"
+                android:textSize="12sp"
+                android:textColor="#CCFFFFFF"/>
+        </LinearLayout>
+
+        <!-- Статус получения -->
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_claim"
+            android:layout_centerHorizontal="true"
+            android:text="Получено"
+            android:textSize="10sp"
+            android:textColor="#A5D6A7"
+            android:visibility="gone"
+            android:layout_marginBottom="4dp"/>
+
+        <!-- Дата получения -->
+        <TextView
+            android:id="@+id/tv_claim_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_status"
+            android:layout_centerHorizontal="true"
+            android:text="Дата: 01.01.2024"
+            android:textSize="10sp"
+            android:textColor="#CCFFFFFF"
+            android:visibility="gone"
+            android:layout_marginBottom="4dp"/>
+
+        <!-- Кнопка получения -->
+        <Button
+            android:id="@+id/btn_claim"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_alignParentBottom="true"
+            android:text="ПОЛУЧИТЬ"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_primary"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
