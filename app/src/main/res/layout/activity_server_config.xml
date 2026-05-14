@@ -43,7 +43,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🌐 Настройка подключения"
+                        android:text="Настройка подключения"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimary"
@@ -83,7 +83,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="🤖 Автоматическое определение"
+                            android:text="Автоматическое определение"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -107,8 +107,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="🔍 Проверить доступные подключения"
-                        style="@style/Widget.Material3.Button.OutlinedButton" />
+                        android:text="Проверить доступные подключения"
+                        app:cornerRadius="40dp"
+                        android:textSize="10sp"/>
 
                     <TextView
                         android:id="@+id/tv_detection_result"
@@ -140,7 +141,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="📡 Тип подключения"
+                        android:text="Тип подключения"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="12dp" />
@@ -155,21 +156,21 @@
                             android:id="@+id/radio_auto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🤖 Авто (рекомендуется)"
+                            android:text="Авто (рекомендуется)"
                             android:layout_marginBottom="8dp" />
 
                         <RadioButton
                             android:id="@+id/radio_external"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🌍 Внешний доступ (интернет)"
+                            android:text="Внешний доступ (интернет)"
                             android:layout_marginBottom="8dp" />
 
                         <RadioButton
                             android:id="@+id/radio_local"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🏠 Локальный доступ (Wi-Fi)" />
+                            android:text="Локальный доступ (Wi-Fi)" />
 
                     </RadioGroup>
 
@@ -195,7 +196,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🌍 Внешний URL (интернет)"
+                        android:text="Внешний URL (интернет)"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp" />
@@ -214,13 +215,15 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_test_external"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="🌐 Проверить внешнее подключение"
-                        style="@style/Widget.Material3.Button.OutlinedButton" />
+                        android:text="Проверить внешнее подключение"
+                        app:cornerRadius="40dp"
+                        android:textSize="10sp"
+                        />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -244,7 +247,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🏠 Локальный URL (Wi-Fi)"
+                        android:text="Локальный URL (Wi-Fi)"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp" />
@@ -283,7 +286,7 @@
                         android:id="@+id/tv_local_ip_hint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="💡 Выберите IP из списка выше"
+                        android:text="Выберите IP из списка выше"
                         android:textSize="12sp"
                         android:textColor="@color/text_hint"
                         android:layout_marginTop="4dp"
@@ -294,7 +297,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="🏠 Проверить локальное подключение"
+                        android:text="Проверить локальное подключение"
                         style="@style/Widget.Material3.Button.OutlinedButton" />
 
                 </LinearLayout>
