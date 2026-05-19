@@ -12,14 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:background="@color/background">
 
         <!-- Заголовок -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🏡 Создать семью"
+            android:text="Создать семью"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
@@ -104,7 +105,9 @@
                 android:text="Создать"
                 style="@style/Widget.MaterialComponents.Button"
                 app:backgroundTint="@color/colorPrimary"
-                app:cornerRadius="16dp" />
+                app:cornerRadius="30dp"
+                android:textColor="@color/background"
+                />
 
         </LinearLayout>
 

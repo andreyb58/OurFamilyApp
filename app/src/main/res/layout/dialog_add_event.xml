@@ -112,6 +112,7 @@
                 style="@style/MaterialButtonStyle"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
+                android:textColor="@color/background"
                 />
 
         </LinearLayout>

@@ -12,6 +12,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
+        android:textColor="@color/colorPrimary"
         android:layout_marginBottom="20dp"/>
 
     <TextView
@@ -19,7 +20,8 @@
         android:layout_height="wrap_content"
         android:text="Название семьи"
         android:textSize="14sp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/et_family_name"
@@ -34,7 +36,8 @@
         android:layout_height="wrap_content"
         android:text="Описание (необязательно)"
         android:textSize="14sp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/et_description"
@@ -64,7 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Создать"
-            style="@style/MaterialButtonStyle"/>
+            style="@style/MaterialButtonStyle"
+            android:textColor="@color/background"/>
 
     </LinearLayout>
 

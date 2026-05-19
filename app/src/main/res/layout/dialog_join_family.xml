@@ -13,7 +13,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
         android:text="Введите код приглашения от главы семьи"
         android:textSize="14sp"
         android:layout_marginBottom="16dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -61,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Присоединиться"
-            style="@style/Widget.MaterialComponents.Button"/>
+            style="@style/Widget.MaterialComponents.Button"
+            android:textColor="@color/background"/>
 
     </LinearLayout>
 

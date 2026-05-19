@@ -85,6 +85,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/round_button"
                 android:src="@drawable/ic_logout"
+                android:textColor="@color/colorPrimary"
                 android:contentDescription="Выйти"
                 android:layout_marginStart="8dp" />
 
@@ -109,9 +110,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🎯 МОИ ОЧКИ"
+                    android:text="МОИ ОЧКИ"
                     android:textSize="16sp"
-                    android:textColor="@color/textSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:layout_marginBottom="8dp" />
 
                 <!-- Количество очков -->
@@ -122,7 +123,7 @@
                     android:text="150"
                     android:textSize="42sp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
                     android:layout_marginBottom="20dp" />
 
                 <!-- Быстрые действия -->
@@ -138,7 +139,7 @@
                         android:layout_height="48dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"
-                        android:text="➕ Задание"
+                        android:text="+ Задание"
                         android:backgroundTint="@color/colorPrimary"
                         android:textColor="@android:color/white"
                         android:textAllCaps="false"
@@ -169,13 +170,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📊 СТАТИСТИКА"
+            android:text="СТАТИСТИКА"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:textColor="@color/colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -318,13 +320,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📅 МОИ КАЛЕНДАРИ"
+            android:text="МОИ КАЛЕНДАРИ"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:textColor="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/btn_create_calendar"

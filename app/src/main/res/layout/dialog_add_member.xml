@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:text="Имя:"
         android:textSize="16sp"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/et_name"
@@ -53,7 +54,8 @@
         android:layout_height="wrap_content"
         android:text="Роль в семье:"
         android:textSize="16sp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/colorPrimary"/>
 
     <RadioGroup
         android:id="@+id/rg_role"
@@ -92,7 +94,7 @@
     android:layout_height="wrap_content"
     android:text="Отправить приглашение"
     android:backgroundTint="@color/colorPrimary"
-    android:textColor="@android:color/white"
+    android:textColor="@color/background"
     android:layout_marginBottom="16dp"
         style="@style/MaterialButtonStyle"/>
 
@@ -115,14 +117,14 @@
 
         <Button
             android:id="@+id/btn_add"
+            style="@style/MaterialButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Добавить"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@android:color/white"
             android:layout_marginStart="8dp"
-            style="@style/MaterialButtonStyle"/>
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Добавить"
+            android:textColor="@color/background" />
 
     </LinearLayout>
 

@@ -15,14 +15,13 @@
             android:id="@+id/tv_points_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🎯 Ваши очки: 0"
+            android:text="Ваши очки: 0"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:gravity="center"
             android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:background="@drawable/bg_points"/>
+            android:padding="12dp" />
 
         <!-- Список наград -->
         <androidx.recyclerview.widget.RecyclerView

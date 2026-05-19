@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:text="Название"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/et_title"
@@ -42,7 +43,8 @@
             android:layout_height="wrap_content"
             android:text="Описание"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/et_description"
@@ -59,7 +61,8 @@
             android:layout_height="wrap_content"
             android:text="Назначить"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <Spinner
             android:id="@+id/spinner_assign_to"
@@ -73,7 +76,8 @@
             android:layout_height="wrap_content"
             android:text="Срок выполнения"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,7 +109,8 @@
             android:layout_height="wrap_content"
             android:text="Очки за выполнение"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/et_points"
@@ -129,7 +134,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Отмена"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/colorPrimary"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"
@@ -139,6 +144,7 @@
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 style="@style/Widget.MaterialComponents.Button"
+                android:textColor="@color/background"
                 app:cornerRadius="40dp"/>
 
         </LinearLayout>

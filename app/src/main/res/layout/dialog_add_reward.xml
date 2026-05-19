@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:text="Название"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/et_title"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:text="Описание"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/et_description"
@@ -56,7 +58,8 @@
             android:layout_height="wrap_content"
             android:text="Стоимость (баллы)"
             android:textSize="14sp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/et_cost"
@@ -81,17 +84,18 @@
                 android:text="Отмена"
                 android:textColor="@android:color/darker_gray" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btn_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Добавить"
                 android:backgroundTint="@color/colorPrimary"
-                android:textColor="@android:color/white"
+                android:textColor="@color/background"
                 style="@style/Widget.MaterialComponents.Button"
                 app:cornerRadius="40dp"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp"/>
+                android:paddingEnd="24dp"
+                />
 
         </LinearLayout>
 

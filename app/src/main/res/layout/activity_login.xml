@@ -36,12 +36,13 @@
                 android:text="Вход в аккаунт"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/iv_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="40dp"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_login"

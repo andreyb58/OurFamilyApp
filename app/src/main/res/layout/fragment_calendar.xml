@@ -29,6 +29,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:textColor="@color/colorPrimary"
             android:text="Январь 2024" />
 
         <Button
@@ -77,6 +78,8 @@
         android:layout_weight="1" />
 
     <!-- FAB для добавления события -->
+
+    <!-- Экран при отсутствии календарей -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_event"
         android:layout_width="wrap_content"
@@ -84,9 +87,8 @@
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="70dp"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorAccent" />
+        app:backgroundTint="@color/colorPrimary" />
 
-    <!-- Экран при отсутствии календарей -->
     <LinearLayout
         android:id="@+id/no_calendar_view"
         android:layout_width="match_parent"

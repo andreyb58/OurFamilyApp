@@ -37,11 +37,11 @@
                 android:text="Регистрация"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/iv_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="40dp"/>
 
             <com.google.android.material.card.MaterialCardView
@@ -67,8 +67,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Имя"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -83,6 +83,9 @@
                             android:layout_height="wrap_content"
                             android:hint="Введите ваше имя"
                             android:inputType="textPersonName"
+                            android:background="@drawable/rounded_edittext"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/success"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,8 +93,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Email"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -106,6 +109,9 @@
                             android:layout_height="wrap_content"
                             android:hint="example@mail.com"
                             android:inputType="textEmailAddress"
+                            android:background="@drawable/rounded_edittext"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/success"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,8 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Пароль"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -130,6 +136,9 @@
                             android:layout_height="wrap_content"
                             android:hint="Не менее 6 символов"
                             android:inputType="textPassword"
+                            android:background="@drawable/rounded_edittext"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/success"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,8 +146,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Подтверждение пароля"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -154,6 +163,9 @@
                             android:layout_height="wrap_content"
                             android:hint="Повторите пароль"
                             android:inputType="textPassword"
+                            android:background="@drawable/rounded_edittext"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/success"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
