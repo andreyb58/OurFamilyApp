@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
     private static final String TAG = "ApiClient";
-    private static final String DEFAULT_URL = "http://192.168.1.74:8080/api/";
+    private static final String DEFAULT_URL = "http://192.168.1.50:8080/api/";
     private static final String PREFS_NAME  = "server_config";
     private static final String KEY_URL     = "server_url";
 

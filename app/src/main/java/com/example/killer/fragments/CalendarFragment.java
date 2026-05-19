@@ -184,6 +184,7 @@ public class CalendarFragment extends Fragment {
 
             @Override
             protected void onPostExecute(List<Calendar> calendars) {
+                if (!isAdded()) return; // фрагмент уже закрыт
                 userCalendars.clear();
                 if (calendars != null) {
                     userCalendars.addAll(calendars);
@@ -312,6 +313,7 @@ public class CalendarFragment extends Fragment {
 
             @Override
             protected void onPostExecute(List<CalendarEvent> calendarEvents) {
+                if (!isAdded()) return; // фрагмент уже закрыт
                 if (events != null && eventAdapter != null) {
                     events.clear();
                     if (calendarEvents != null) {
@@ -349,6 +351,7 @@ public class CalendarFragment extends Fragment {
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
+                        if (!isAdded()) return; // фрагмент уже закрыт
                         Toast.makeText(getContext(), "Событие добавлено", Toast.LENGTH_SHORT).show();
                         loadEventsForSelectedDay();
                     }
