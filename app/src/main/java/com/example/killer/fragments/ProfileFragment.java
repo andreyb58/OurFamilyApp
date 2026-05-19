@@ -154,6 +154,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onError(String error) {
+                if (!isAdded()) return; // фрагмент уже закрыт
                 // Показываем из кэша
                 requireActivity().runOnUiThread(() -> loadProfileFromCache());
             }
@@ -324,7 +325,7 @@ public class ProfileFragment extends Fragment {
                     }
                     @Override
                     protected void onPostExecute(int[] res) {
-                        if (!isAdded()) return;
+                        if (!isAdded()) return; // фрагмент уже закрыт
                         tvCompletedTasks.setText(String.valueOf(res[0]));
                         tvClaimedRewards.setText(String.valueOf(res[1]));
                     }

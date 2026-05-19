@@ -72,13 +72,23 @@ public class AddFamilyDialog extends DialogFragment {
                         // Обновляем family_id в AuthManager
                         Object idObj = data.get("id");
                         if (idObj != null) {
-                            int familyId = (idObj instanceof Double) ?
-                                    ((Double) idObj).intValue() : (Integer) idObj;
-                            AuthManager authManager = AuthManager.getInstance(requireContext());
-                            User user = authManager.getCurrentUser();
-                            if (user != null) {
-                                user.setFamilyId(familyId);
-                                authManager.saveAuthData(authManager.getToken(), user);
+                            int familyId;
+                            if (idObj instanceof Double) {
+                                familyId = ((Double) idObj).intValue();
+                            } else if (idObj instanceof Integer) {
+                                familyId = (Integer) idObj;
+                            } else {
+                                try { familyId = Integer.parseInt(idObj.toString()); }
+                                catch (NumberFormatException e) { familyId = 0; }
+                            }
+                            if (familyId > 0) {
+                                AuthManager authManager = AuthManager.getInstance(requireContext());
+                                authManager.updateFamilyId(familyId);
+                                User user = authManager.getCurrentUser();
+                                if (user != null) {
+                                    user.setFamilyId(familyId);
+                                    authManager.saveAuthData(authManager.getToken(), user);
+                                }
                             }
                         }
 

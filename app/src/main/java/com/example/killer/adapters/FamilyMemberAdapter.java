@@ -35,7 +35,8 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
 
         String name = (String) member.get("name");
         String role = (String) member.get("role");
-        Integer points = (Integer) member.get("points");
+        Object pointsRaw = member.get("points");
+        int points = pointsRaw instanceof Number ? ((Number) pointsRaw).intValue() : 0;
 
         holder.tvMemberName.setText(name != null ? name : "Участник");
 
@@ -49,7 +50,7 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
         holder.tvRole.setText(roleText);
 
         // Отображаем очки
-        holder.tvPoints.setText("⭐ " + (points != null ? points : 0) + " очков");
+        holder.tvPoints.setText("⭐ " + points + " очков");
 
         // Генерируем инициалы для аватара
         String initials = generateInitials(name);
