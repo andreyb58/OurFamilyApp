@@ -37,7 +37,8 @@
                 android:layout_height="56dp"
                 android:text="Создать семью"
                 android:layout_marginBottom="16dp"
-                style="@style/Widget.MaterialComponents.Button"/>
+                style="@style/Widget.MaterialComponents.Button"
+                android:textColor="@color/background"/>
 
             <Button
                 android:id="@+id/btn_join_family"
@@ -52,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="16dp"
-                android:text="Покинуть семью" />
+                android:text="Покинуть семью"
+                android:textColor="@color/background"/>
 
         </LinearLayout>
 
