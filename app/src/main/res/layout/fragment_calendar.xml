@@ -19,6 +19,7 @@
             android:id="@+id/btn_prev_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/background"
             android:text="◀" />
 
         <TextView
@@ -36,6 +37,7 @@
             android:id="@+id/btn_next_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/background"
             android:text="▶" />
 
     </LinearLayout>
@@ -46,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Сегодня"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/background"/>
 
     <!-- Выбор календаря -->
     <Spinner
