@@ -90,7 +90,8 @@
                 android:layout_height="56dp"
                 android:text="Зарегистрироваться"
                 android:textSize="14sp"
-                app:cornerRadius="28dp"/>
+                app:cornerRadius="28dp"
+                android:textColor="@color/background"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

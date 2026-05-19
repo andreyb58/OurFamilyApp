@@ -20,7 +20,7 @@
     <color name="warning">#D59B47</color>
     <color name="error">#C96B5C</color>
     <color name="info">#6B8BB6</color>
-    <color name="text_primary">#124A1D</color>
+    <color name="text_primary">#222222</color>
     <color name="text_secondary">#5F6D63</color>
     <color name="text_hint">#8A938D</color>
     <color name="text_disabled">#C9CEC9</color>
