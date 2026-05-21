@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/bottom_nav_background"
-        app:itemRippleColor="@color/white"
+        app:itemRippleColor="@color/colorPrimary"
         app:itemIconTint="@drawable/nav_item_color"
         app:itemTextColor="@drawable/nav_item_color"
         app:menu="@menu/bottom_navigation_menu" />

@@ -225,7 +225,7 @@
                     android:id="@+id/btn_join_family"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="🔑 Присоединиться"
+                    android:text="Присоединиться"
                     app:cornerRadius="28dp"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
