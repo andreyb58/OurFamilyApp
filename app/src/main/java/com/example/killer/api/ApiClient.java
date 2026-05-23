@@ -25,7 +25,6 @@ public class ApiClient {
     private static Retrofit retrofit      = null;
     private static String currentBaseUrl  = null;
 
-    // Context нужен для автоперенаправления при 401
     private static Context appContext;
 
     public static Retrofit getClient(Context context) {
@@ -69,7 +68,6 @@ public class ApiClient {
 
                     Response response = chain.proceed(builder.build());
 
-                    // ИСПРАВЛЕНО: при 401 — чистим токен и отправляем на логин
                     if (response.code() == 401) {
                         Log.w(TAG, "401 — токен устарел, очищаем сессию");
                         authPrefs.edit().remove("jwt_token").apply();

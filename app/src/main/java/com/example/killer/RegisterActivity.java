@@ -18,7 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword, etConfirmPassword;
     private MaterialButton btnRegister;
-    private TextView tvLogin;
+    private TextView tvLogin, tvError;
     private ProgressBar progressBar;
     private AuthManager authManager;
 
@@ -33,71 +33,76 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        etName = findViewById(R.id.et_name);
-        etEmail = findViewById(R.id.et_email);
-        etPassword = findViewById(R.id.et_password);
+        etName            = findViewById(R.id.et_name);
+        etEmail           = findViewById(R.id.et_email);
+        etPassword        = findViewById(R.id.et_password);
         etConfirmPassword = findViewById(R.id.et_confirm_password);
-        btnRegister = findViewById(R.id.btn_register);
-        tvLogin = findViewById(R.id.tv_login);
-        progressBar = findViewById(R.id.progress_bar);
+        btnRegister       = findViewById(R.id.btn_register);
+        tvLogin           = findViewById(R.id.tv_login);
+        progressBar       = findViewById(R.id.progress_bar);
+        tvError           = findViewById(R.id.tv_error);
+
+        // Кнопка "назад" в layout
+        View ivBack = findViewById(R.id.iv_back);
+        if (ivBack != null) {
+            ivBack.setOnClickListener(v -> navigateToLogin());
+        }
     }
 
     private void setupClickListeners() {
         btnRegister.setOnClickListener(v -> registerUser());
 
-        tvLogin.setOnClickListener(v -> {
-            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-            finish();
-        });
+        tvLogin.setOnClickListener(v -> navigateToLogin());
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish();
     }
 
     private void registerUser() {
-        String name = etName.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+        String name            = etName.getText().toString().trim();
+        String email           = etEmail.getText().toString().trim();
+        String password        = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-        // Валидация
         if (TextUtils.isEmpty(name)) {
             etName.setError("Введите имя");
             etName.requestFocus();
             return;
         }
-
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("Введите email");
             etEmail.requestFocus();
             return;
         }
-
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError("Введите корректный email");
             etEmail.requestFocus();
             return;
         }
-
         if (TextUtils.isEmpty(password)) {
             etPassword.setError("Введите пароль");
             etPassword.requestFocus();
             return;
         }
-
         if (password.length() < 6) {
             etPassword.setError("Пароль должен быть не менее 6 символов");
             etPassword.requestFocus();
             return;
         }
-
         if (!password.equals(confirmPassword)) {
             etConfirmPassword.setError("Пароли не совпадают");
             etConfirmPassword.requestFocus();
             return;
         }
 
-        // Показываем прогресс
         progressBar.setVisibility(View.VISIBLE);
         btnRegister.setEnabled(false);
-        btnRegister.setText("");
+        btnRegister.setText("Регистрация...");
 
         authManager.register(email, password, name, new AuthManager.AuthCallback() {
             @Override
@@ -108,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setText("Зарегистрироваться");
 
                     Toast.makeText(RegisterActivity.this,
-                            "✅ Регистрация успешна! Добро пожаловать, " + name + "!",
+                            "Регистрация успешна! Добро пожаловать, " + name + "!",
                             Toast.LENGTH_LONG).show();
 
                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
@@ -123,8 +128,13 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setEnabled(true);
                     btnRegister.setText("Зарегистрироваться");
 
+                    // Показываем ошибку текстом (видно всегда)
+                    if (tvError != null) {
+                        tvError.setVisibility(View.VISIBLE);
+                        tvError.setText("Ошибка регистрации: " + error);
+                    }
                     Toast.makeText(RegisterActivity.this,
-                            "❌ Ошибка регистрации: " + error,
+                            "Ошибка: " + error,
                             Toast.LENGTH_LONG).show();
                 });
             }
@@ -133,7 +143,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        navigateToLogin();
     }
 }

@@ -38,7 +38,7 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private SwipeRefreshLayout swipeRefreshLayout;
     private View noFamilyView;
     private MaterialCardView familyInfoCard;
-    private TextView tvFamilyName, tvInviteCode, tvMemberCount;
+    private TextView tvFamilyName, tvInviteCode, tvMemberCount, tvRoleHint;
     private MaterialButton btnCreateFamily, btnJoinFamily, btnInviteMember, btnLeaveFamily;
     private ImageButton btnCopyInvite;
     private RecyclerView membersRecyclerView;
@@ -53,7 +53,7 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authManager  = AuthManager.getInstance(requireContext());
+        authManager   = AuthManager.getInstance(requireContext());
         familyManager = FamilyManager.getInstance(requireContext());
     }
 
@@ -64,7 +64,6 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         View view = inflater.inflate(R.layout.fragment_family_new, container, false);
         initViews(view);
         setupRecyclerView();
-        // ИСПРАВЛЕНО: всегда идём на сервер, не доверяем локальному family_id
         loadFamilyFromServer();
         return view;
     }
@@ -79,6 +78,7 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         tvFamilyName    = view.findViewById(R.id.tv_family_name);
         tvInviteCode    = view.findViewById(R.id.tv_invite_code);
         tvMemberCount   = view.findViewById(R.id.tv_member_count);
+        tvRoleHint      = view.findViewById(R.id.tv_role_hint);
         btnCreateFamily = view.findViewById(R.id.btn_create_family);
         btnJoinFamily   = view.findViewById(R.id.btn_join_family);
         btnInviteMember = view.findViewById(R.id.btn_invite_member);
@@ -100,7 +100,6 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         membersRecyclerView.setAdapter(memberAdapter);
     }
 
-    /** ИСПРАВЛЕНО: всегда запрашиваем семью с сервера — не смотрим на локальный family_id */
     private void loadFamilyFromServer() {
         showLoading(true);
         familyManager.getMyFamily(new FamilyManager.FamilyCallback() {
@@ -112,7 +111,6 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     swipeRefreshLayout.setRefreshing(false);
 
                     if (data == null || data.isEmpty() || data.get("id") == null) {
-                        // Сервер сказал — семьи нет
                         clearLocalFamilyId();
                         showNoFamilyView();
                         return;
@@ -120,7 +118,6 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
                     currentFamily = data;
 
-                    // Обновляем family_id в AuthManager из ответа сервера
                     int familyId = extractInt(data.get("id"));
                     if (familyId > 0) {
                         authManager.updateFamilyId(familyId);
@@ -133,10 +130,10 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
                     showFamilyInfo(data);
 
-                    // Участники
                     Object membersObj = data.get("members");
                     if (membersObj instanceof List) {
                         members.clear();
+                        //noinspection unchecked
                         members.addAll((List<Map<String, Object>>) membersObj);
                         memberAdapter.notifyDataSetChanged();
                     }
@@ -149,7 +146,6 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 requireActivity().runOnUiThread(() -> {
                     showLoading(false);
                     swipeRefreshLayout.setRefreshing(false);
-                    // Любая ошибка (включая "не в семье") → показываем экран без семьи
                     clearLocalFamilyId();
                     showNoFamilyView();
                 });
@@ -157,7 +153,6 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         });
     }
 
-    /** Сбрасываем family_id локально если сервер говорит что семьи нет */
     private void clearLocalFamilyId() {
         User user = authManager.getCurrentUser();
         if (user != null && user.getFamilyId() != 0) {
@@ -173,15 +168,79 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         String name = family.get("name") != null ? family.get("name").toString() : "Моя семья";
         String code = family.get("inviteCode") != null ? family.get("inviteCode").toString() : "------";
-        int cnt = members.size();
 
         tvFamilyName.setText(name);
-        tvInviteCode.setText("Код: " + code);
-        tvMemberCount.setText("Участников: " + cnt);
+        tvInviteCode.setText(code);
+        tvMemberCount.setText("Участников: " + members.size());
 
         if (btnInviteMember != null) btnInviteMember.setVisibility(View.VISIBLE);
         if (btnLeaveFamily  != null) btnLeaveFamily.setVisibility(View.VISIBLE);
         if (btnCopyInvite   != null) btnCopyInvite.setVisibility(View.VISIBLE);
+
+        // Определяем, является ли текущий пользователь создателем семьи
+        int currentUserId = authManager.getUserId();
+        int createdBy = extractInt(family.get("createdBy"));
+        boolean isOwner = (currentUserId > 0 && currentUserId == createdBy);
+
+        memberAdapter.setOwner(isOwner);
+        if (tvRoleHint != null) {
+            tvRoleHint.setVisibility(isOwner && !members.isEmpty() ? View.VISIBLE : View.GONE);
+        }
+
+        memberAdapter.setOnMemberClickListener((member, position) -> {
+            if (!isOwner) return;
+            showChangeRoleDialog(member);
+        });
+
+        memberAdapter.notifyDataSetChanged();
+    }
+
+    private void showChangeRoleDialog(Map<String, Object> member) {
+        String memberName = member.get("name") != null ? member.get("name").toString() : "Участник";
+        String currentRole = member.get("role") != null ? member.get("role").toString() : "CHILD";
+        int memberId = extractInt(member.get("id"));
+
+        String[] roles = {"Родитель", "Ребенок"};
+        String[] roleValues = {"PARENT", "CHILD"};
+        int checkedItem = "PARENT".equals(currentRole) ? 0 : 1;
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Роль: " + memberName)
+                .setSingleChoiceItems(roles, checkedItem, null)
+                .setPositiveButton("Сохранить", (dialog, which) -> {
+                    android.widget.ListView listView = ((androidx.appcompat.app.AlertDialog) dialog).getListView();
+                    int selected = listView.getCheckedItemPosition();
+                    String newRole = roleValues[selected];
+                    if (newRole.equals(currentRole)) return;
+                    changeMemberRole(memberId, newRole);
+                })
+                .setNegativeButton("Отмена", null)
+                .show();
+    }
+
+    private void changeMemberRole(int memberId, String newRole) {
+        showLoading(true);
+        familyManager.changeMemberRole(memberId, newRole, new FamilyManager.FamilyCallback() {
+            @Override
+            public void onSuccess(Map<String, Object> data) {
+                if (!isAdded()) return;
+                requireActivity().runOnUiThread(() -> {
+                    showLoading(false);
+                    String roleName = "PARENT".equals(newRole) ? "Родитель" : "Ребенок";
+                    Toast.makeText(getContext(), "Роль изменена: " + roleName, Toast.LENGTH_SHORT).show();
+                    loadFamilyFromServer();
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                if (!isAdded()) return;
+                requireActivity().runOnUiThread(() -> {
+                    showLoading(false);
+                    Toast.makeText(getContext(), "Ошибка: " + error, Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
     }
 
     private void showNoFamilyView() {
@@ -193,6 +252,7 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         if (btnInviteMember != null) btnInviteMember.setVisibility(View.GONE);
         if (btnLeaveFamily  != null) btnLeaveFamily.setVisibility(View.GONE);
         if (btnCopyInvite   != null) btnCopyInvite.setVisibility(View.GONE);
+        if (tvRoleHint      != null) tvRoleHint.setVisibility(View.GONE);
     }
 
     private void showLoading(boolean loading) {
@@ -204,7 +264,7 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         AddFamilyDialog dlg = new AddFamilyDialog();
         dlg.setOnFamilyCreatedListener(() -> {
             loadFamilyFromServer();
-            Toast.makeText(getContext(), "🏠 Семья создана!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Семья создана!", Toast.LENGTH_SHORT).show();
         });
         dlg.show(getParentFragmentManager(), "AddFamilyDialog");
     }
@@ -213,17 +273,17 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
         JoinFamilyDialog dlg = new JoinFamilyDialog();
         dlg.setOnFamilyJoinedListener(() -> {
             loadFamilyFromServer();
-            Toast.makeText(getContext(), "✅ Вы присоединились к семье!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Вы присоединились к семье!", Toast.LENGTH_SHORT).show();
         });
         dlg.show(getParentFragmentManager(), "JoinFamilyDialog");
     }
 
     private void showInviteDialog() {
         if (currentFamily == null) return;
-        String code = currentFamily.get("inviteCode") != null ?
-                currentFamily.get("inviteCode").toString() : "------";
+        String code = currentFamily.get("inviteCode") != null
+                ? currentFamily.get("inviteCode").toString() : "------";
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("👥 Пригласить участника")
+                .setTitle("Пригласить участника")
                 .setMessage("Код приглашения: " + code + "\n\nПоделитесь этим кодом с членом семьи.")
                 .setPositiveButton("Копировать", (d, w) -> copyInviteCode())
                 .setNegativeButton("Закрыть", null)
@@ -232,7 +292,7 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void confirmLeave() {
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("⚠️ Выход из семьи")
+                .setTitle("Выход из семьи")
                 .setMessage("Вы уверены, что хотите покинуть семью?")
                 .setPositiveButton("Выйти", (d, w) -> leaveFamily())
                 .setNegativeButton("Отмена", null)
@@ -269,12 +329,12 @@ public class FamilyFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     private void copyInviteCode() {
-        String text = tvInviteCode.getText().toString();
-        String code = text.startsWith("Код: ") ? text.substring(5) : text;
+        if (tvInviteCode == null) return;
+        String code = tvInviteCode.getText().toString();
         ClipboardManager cm = (ClipboardManager) requireContext()
                 .getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("InviteCode", code));
-        Toast.makeText(getContext(), "✅ Код скопирован: " + code, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Код скопирован: " + code, Toast.LENGTH_SHORT).show();
     }
 
     private int extractInt(Object v) {

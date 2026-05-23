@@ -162,7 +162,7 @@ public class AchievementsFragment extends Fragment {
             int pts   = ApiUtils.extractInt(item.get("total_points"));
             int tasks = ApiUtils.extractInt(item.get("completed_tasks"));
 
-            String medal = rank == 1 ? "🥇" : rank == 2 ? "🥈" : rank == 3 ? "🥉"
+            String medal = rank == 1 ? "" : rank == 2 ? "" : rank == 3 ? ""
                     : rank + ".";
             h.tvRank.setText(medal);
             h.tvName.setText(name + (id == myId ? " (Вы)" : ""));
@@ -209,7 +209,7 @@ public class AchievementsFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull VH h, int pos) {
             Map<String, Object> item = items.get(pos);
-            h.tvTitle.setText("🏅 " + ApiUtils.extractString(item.get("title")));
+            h.tvTitle.setText(" " + ApiUtils.extractString(item.get("title")));
             h.tvDescription.setText(ApiUtils.extractString(item.get("description")));
             String earnedAt = ApiUtils.extractString(item.get("earnedAt"));
             if (earnedAt.length() > 10) earnedAt = earnedAt.substring(0, 10);

@@ -1,103 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- Панель управления календарем (скрывается при отсутствии календарей) -->
+    <!-- Основной контент календаря -->
     <LinearLayout
-        android:id="@+id/calendar_controls"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingBottom="80dp">
 
-        <Button
-            android:id="@+id/btn_prev_month"
-            android:layout_width="wrap_content"
+        <!-- Панель управления: предыдущий/следующий месяц -->
+        <LinearLayout
+            android:id="@+id/calendar_controls"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/background"
-            android:text="◀" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
 
+            <Button
+                android:id="@+id/btn_prev_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/background"
+                android:text="◀" />
+
+            <TextView
+                android:id="@+id/tv_month_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:text="Январь 2024" />
+
+            <Button
+                android:id="@+id/btn_next_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/background"
+                android:text="▶" />
+
+        </LinearLayout>
+
+        <!-- Кнопка «Сегодня» -->
+        <Button
+            android:id="@+id/btn_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сегодня"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/background"/>
+
+        <!-- Скрытый Spinner (для совместимости) -->
+        <Spinner
+            android:id="@+id/spinner_calendars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <!-- Текст ошибки -->
         <TextView
-            android:id="@+id/tv_month_year"
-            android:layout_width="0dp"
+            android:id="@+id/tv_error"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:text="Январь 2024" />
+            android:textColor="#D32F2F"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:background="#FFEBEE"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
 
-        <Button
-            android:id="@+id/btn_next_month"
-            android:layout_width="wrap_content"
+        <!-- Сетка дней месяца -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendar_grid"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/background"
-            android:text="▶" />
+            android:layout_marginBottom="12dp" />
+
+        <!-- Заголовок событий дня -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="События на день:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Список событий -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/events_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
-    <!-- Кнопка "Сегодня" -->
-    <Button
-        android:id="@+id/btn_today"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Сегодня"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/background"/>
-
-    <!-- Выбор календаря -->
-    <Spinner
-        android:id="@+id/spinner_calendars"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Сетка дней месяца -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calendar_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
-
-    <!-- События дня -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="События на день:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/events_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <!-- FAB для добавления события -->
-
-    <!-- Экран при отсутствии календарей -->
+    <!-- Плавающая кнопка добавления события -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="70dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="88dp"
+        android:contentDescription="Добавить событие"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorPrimary" />
+        app:backgroundTint="@color/colorPrimary"
+        app:tint="@android:color/white" />
 
+    <!-- Экран при отсутствии семьи -->
     <LinearLayout
         android:id="@+id/no_calendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:padding="32dp"
         android:visibility="gone">
 
         <TextView
@@ -110,7 +135,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="У вас пока нет календарей"
+            android:text="Вступите в семью"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
@@ -118,20 +143,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Создайте свой первый календарь, чтобы начать планировать"
+            android:text="Чтобы пользоваться семейным календарём, сначала вступите в семью или создайте свою в разделе «Семья»"
             android:textAlignment="center"
             android:textSize="14sp"
             android:textColor="@color/colorAccent"
             android:layout_marginBottom="24dp" />
 
-        <Button
-            android:id="@+id/btn_create_calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Создать календарь"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@android:color/white" />
-
     </LinearLayout>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

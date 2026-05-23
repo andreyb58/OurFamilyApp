@@ -14,144 +14,130 @@ import com.example.killer.auth.AuthManager;
 import com.example.killer.models.User;
 import com.google.android.material.button.MaterialButton;
 
-/**
- * Активность для входа пользователя
- * Реализует логику аутентификации с валидацией полей
- */
 public class LoginActivity extends AppCompatActivity {
 
-    // UI элементы
     private EditText etEmail, etPassword;
     private MaterialButton btnLogin;
-    private TextView tvRegister, tvForgotPassword;
+    private TextView tvRegister, tvForgotPassword, tvError;
     private ProgressBar progressBar;
-    private AuthManager authManager; // Менеджер авторизации
+    private AuthManager authManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        authManager = AuthManager.getInstance(this); // Инициализация AuthManager
+        authManager = AuthManager.getInstance(this);
 
-        // Если пользователь уже авторизован, переходим в главное приложение
         if (authManager.isLoggedIn()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish(); // Закрываем LoginActivity
+            finish();
             return;
         }
 
-        initializeViews(); // Инициализация UI элементов
-        setupClickListeners(); // Настройка обработчиков кликов
+        initializeViews();
+        setupClickListeners();
     }
 
-    /**
-     * Инициализация всех View элементов
-     */
     private void initializeViews() {
-        etEmail = findViewById(R.id.et_email); // Поле email
-        etPassword = findViewById(R.id.et_password); // Поле пароля
-        btnLogin = findViewById(R.id.btn_login); // Кнопка входа
-        tvRegister = findViewById(R.id.tv_register); // Ссылка на регистрацию
-        tvForgotPassword = findViewById(R.id.tv_forgot_password); // Восстановление пароля
-        progressBar = findViewById(R.id.progress_bar); // Индикатор загрузки
+        etEmail          = findViewById(R.id.et_email);
+        etPassword       = findViewById(R.id.et_password);
+        btnLogin         = findViewById(R.id.btn_login);
+        tvRegister       = findViewById(R.id.tv_register);
+        tvForgotPassword = findViewById(R.id.tv_forgot_password);
+        progressBar      = findViewById(R.id.progress_bar);
+        tvError          = findViewById(R.id.tv_error);
+
+        // Кнопка назад в layout
+        View ivBack = findViewById(R.id.iv_back);
+        if (ivBack != null) {
+            ivBack.setOnClickListener(v -> navigateBack());
+        }
     }
 
-    /**
-     * Настройка обработчиков нажатий
-     */
     private void setupClickListeners() {
-        // Обработчик кнопки входа
         btnLogin.setOnClickListener(v -> loginUser());
 
-        // Обработчик перехода к регистрации
         tvRegister.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Анимация
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
-        // Обработчик восстановления пароля (в разработке)
-        tvForgotPassword.setOnClickListener(v -> {
-            Toast.makeText(this, "Функция восстановления пароля в разработке", Toast.LENGTH_SHORT).show();
-        });
+        tvForgotPassword.setOnClickListener(v ->
+                Toast.makeText(this, "Функция восстановления пароля в разработке", Toast.LENGTH_SHORT).show()
+        );
     }
 
-    /**
-     * Логика входа пользователя
-     * Включает валидацию полей и вызов API
-     */
+    private void navigateBack() {
+        Intent intent = new Intent(LoginActivity.this, AuthActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish();
+    }
+
     private void loginUser() {
-        // Получаем значения из полей ввода
-        String email = etEmail.getText().toString().trim();
+        String email    = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Валидация email
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("Введите email");
-            etEmail.requestFocus(); // Фокусируемся на поле
+            etEmail.requestFocus();
             return;
         }
-
-        // Валидация пароля
         if (TextUtils.isEmpty(password)) {
             etPassword.setError("Введите пароль");
             etPassword.requestFocus();
             return;
         }
-
-        // Проверка минимальной длины пароля
         if (password.length() < 6) {
             etPassword.setError("Пароль должен быть не менее 6 символов");
             etPassword.requestFocus();
             return;
         }
 
-        // Показываем индикатор загрузки и блокируем кнопку
         progressBar.setVisibility(View.VISIBLE);
         btnLogin.setEnabled(false);
+        btnLogin.setText("Вход...");
 
-        // Вызываем метод входа AuthManager
         authManager.login(email, password, new AuthManager.AuthCallback() {
             @Override
             public void onSuccess(User user) {
-                // Скрываем индикатор и разблокируем кнопку
-                progressBar.setVisibility(View.GONE);
-                btnLogin.setEnabled(true);
+                runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    btnLogin.setEnabled(true);
+                    btnLogin.setText("Войти");
 
-                // Показываем приветственное сообщение
-                if (user != null && user.getName() != null && !user.getName().isEmpty()) {
-                    Toast.makeText(LoginActivity.this,
-                            "Вход выполнен успешно! Добро пожаловать, " + user.getName() + "!",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Вход выполнен успешно!", Toast.LENGTH_SHORT).show();
-                }
+                    String name = (user != null && user.getName() != null && !user.getName().isEmpty())
+                            ? user.getName() : "";
+                    String msg = name.isEmpty()
+                            ? "Вход выполнен успешно!"
+                            : "Добро пожаловать, " + name + "!";
+                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-                // Переходим в главное приложение
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish(); // Закрываем LoginActivity
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                });
             }
 
             @Override
             public void onError(String error) {
-                // Скрываем индикатор и разблокируем кнопку
-                progressBar.setVisibility(View.GONE);
-                btnLogin.setEnabled(true);
-
-                // Показываем ошибку
-                Toast.makeText(LoginActivity.this,
-                        "Ошибка входа: " + error,
-                        Toast.LENGTH_LONG).show();
+                runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    btnLogin.setEnabled(true);
+                    btnLogin.setText("Войти");
+                    if (tvError != null) {
+                        tvError.setVisibility(View.VISIBLE);
+                        tvError.setText("Ошибка входа: " + error);
+                    }
+                    Toast.makeText(LoginActivity.this, "Ошибка: " + error, Toast.LENGTH_LONG).show();
+                });
             }
         });
     }
 
-    /**
-     * Обработка нажатия кнопки "Назад"
-     */
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right); // Анимация
+        navigateBack();
     }
 }

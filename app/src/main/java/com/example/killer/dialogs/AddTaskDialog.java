@@ -168,7 +168,7 @@ public class AddTaskDialog extends DialogFragment {
                     @Override
                     protected void onPostExecute(Void v) {
                         if (btnSave != null) btnSave.setEnabled(true);
-                        Toast.makeText(getContext(), "✅ Задание добавлено!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), " Задание добавлено!", Toast.LENGTH_SHORT).show();
                         if (listener != null) listener.onTaskAdded();
                         dismiss();
                     }

@@ -134,15 +134,15 @@ public class ServerConfigActivity extends AppCompatActivity {
                     if (position >= 0) {
                         spinnerLocalIps.setSelection(position);
                     }
-                    tvLocalIpHint.setText("💡 Рекомендуемый IP: " + suggestedIp);
+                    tvLocalIpHint.setText(" Рекомендуемый IP: " + suggestedIp);
                 }
 
                 spinnerLocalIps.setVisibility(View.VISIBLE);
             } else {
-                tvLocalIpHint.setText("⚠️ Не удалось определить локальные IP");
+                tvLocalIpHint.setText("️ Не удалось определить локальные IP");
             }
         } catch (Exception e) {
-            tvLocalIpHint.setText("⚠️ Ошибка определения IP: " + e.getMessage());
+            tvLocalIpHint.setText("️ Ошибка определения IP: " + e.getMessage());
         }
     }
 
@@ -280,7 +280,7 @@ public class ServerConfigActivity extends AppCompatActivity {
     }
 
     private void autoDetectBestConnection() {
-        tvDetectionResult.setText("🔄 Проверка подключений...");
+        tvDetectionResult.setText(" Проверка подключений...");
         tvDetectionResult.setVisibility(View.VISIBLE);
 
         String externalUrl = etExternalUrl.getText().toString().trim();
@@ -293,27 +293,27 @@ public class ServerConfigActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 StringBuilder result = new StringBuilder();
                 if (externalWorks && localWorks) {
-                    result.append("✅ Доступны оба подключения\n");
+                    result.append(" Доступны оба подключения\n");
                     // Выбираем локальное как более быстрое
                     radioConnectionType.check(R.id.radio_local);
                     switchAutoDetect.setChecked(false);
                     updateUrlFieldsVisibility(true, false);
-                    result.append("👉 Выбрано локальное подключение");
+                    result.append(" Выбрано локальное подключение");
                 } else if (externalWorks) {
-                    result.append("✅ Доступно внешнее подключение\n");
+                    result.append(" Доступно внешнее подключение\n");
                     radioConnectionType.check(R.id.radio_external);
                     switchAutoDetect.setChecked(false);
                     updateUrlFieldsVisibility(true, true);
-                    result.append("👉 Выбрано внешнее подключение");
+                    result.append(" Выбрано внешнее подключение");
                 } else if (localWorks) {
-                    result.append("✅ Доступно локальное подключение\n");
+                    result.append(" Доступно локальное подключение\n");
                     radioConnectionType.check(R.id.radio_local);
                     switchAutoDetect.setChecked(false);
                     updateUrlFieldsVisibility(true, false);
-                    result.append("👉 Выбрано локальное подключение");
+                    result.append(" Выбрано локальное подключение");
                 } else {
-                    result.append("❌ Нет доступных подключений\n");
-                    result.append("💡 Проверьте настройки сервера");
+                    result.append(" Нет доступных подключений\n");
+                    result.append(" Проверьте настройки сервера");
                 }
 
                 tvDetectionResult.setText(result.toString());
@@ -335,10 +335,10 @@ public class ServerConfigActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (success) {
                     Toast.makeText(ServerConfigActivity.this,
-                            "✅ " + type + " сервер доступен!", Toast.LENGTH_LONG).show();
+                            " " + type + " сервер доступен!", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(ServerConfigActivity.this,
-                            "❌ " + type + " сервер недоступен", Toast.LENGTH_LONG).show();
+                            " " + type + " сервер недоступен", Toast.LENGTH_LONG).show();
                 }
             });
         }).start();

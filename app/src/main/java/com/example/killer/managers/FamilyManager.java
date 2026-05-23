@@ -160,6 +160,32 @@ public class FamilyManager {
         }
     }
 
+    // Смена роли участника (только для создателя семьи)
+    public void changeMemberRole(int memberId, String newRole, FamilyCallback callback) {
+        if (!authManager.isLoggedIn()) {
+            callback.onError("Требуется авторизация");
+            return;
+        }
+        try {
+            ApiService apiService = ApiClient.getClient(context).create(ApiService.class);
+            Map<String, Object> request = new HashMap<>();
+            request.put("role", newRole);
+            ApiUtils.makeApiCall(apiService.changeMemberRole(memberId, request), new ApiUtils.ApiCallback<Map<String, Object>>() {
+                @Override
+                public void onSuccess(Map<String, Object> data) {
+                    Log.d(TAG, "Роль участника изменена: " + data);
+                    callback.onSuccess(data);
+                }
+                @Override
+                public void onError(String error) {
+                    callback.onError(error);
+                }
+            });
+        } catch (Exception e) {
+            callback.onError("Ошибка смены роли: " + e.getMessage());
+        }
+    }
+
     // Обновление информации о семье
     public void updateFamily(int familyId, String name, String description, FamilyCallback callback) {
         if (!authManager.isLoggedIn()) {

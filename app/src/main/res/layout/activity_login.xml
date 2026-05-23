@@ -145,6 +145,19 @@
                         android:layout_gravity="center"
                         android:visibility="gone"/>
 
+                    <TextView
+                        android:id="@+id/tv_error"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#D32F2F"
+                        android:textSize="14sp"
+                        android:padding="10dp"
+                        android:background="#FFEBEE"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone"
+                        android:gravity="center" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

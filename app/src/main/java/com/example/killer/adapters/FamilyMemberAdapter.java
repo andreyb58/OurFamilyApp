@@ -14,12 +14,26 @@ import java.util.Map;
 
 public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapter.ViewHolder> {
 
-    private List<Map<String, Object>> members;
-    private Context context;
+    public interface OnMemberClickListener {
+        void onMemberClick(Map<String, Object> member, int position);
+    }
+
+    private final List<Map<String, Object>> members;
+    private final Context context;
+    private OnMemberClickListener clickListener;
+    private boolean isOwner = false;
 
     public FamilyMemberAdapter(List<Map<String, Object>> members, Context context) {
         this.members = members;
         this.context = context;
+    }
+
+    public void setOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+    }
+
+    public void setOnMemberClickListener(OnMemberClickListener listener) {
+        this.clickListener = listener;
     }
 
     @Override
@@ -40,27 +54,23 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
 
         holder.tvMemberName.setText(name != null ? name : "Участник");
 
-        // Отображаем роль
-        String roleText = "Участник";
-        if ("PARENT".equals(role)) {
-            roleText = "👑 Родитель";
-        } else if ("CHILD".equals(role)) {
-            roleText = "👶 Ребенок";
-        }
+        String roleText = "PARENT".equals(role) ? "Родитель" : "Ребенок";
         holder.tvRole.setText(roleText);
+        holder.tvPoints.setText(points + " очков");
 
-        // Отображаем очки
-        holder.tvPoints.setText("⭐ " + points + " очков");
-
-        // Генерируем инициалы для аватара
         String initials = generateInitials(name);
         holder.tvAvatarText.setText(initials);
+
+        // Клик для смены роли (только создателю семьи)
+        if (isOwner && clickListener != null) {
+            holder.itemView.setOnClickListener(v -> clickListener.onMemberClick(member, position));
+        } else {
+            holder.itemView.setOnClickListener(null);
+        }
     }
 
     private String generateInitials(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            return "👤";
-        }
+        if (name == null || name.trim().isEmpty()) return "?";
         String trimmedName = name.trim();
         if (trimmedName.contains(" ")) {
             String[] parts = trimmedName.split(" ");
@@ -68,9 +78,9 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
                 return String.valueOf(parts[0].charAt(0)) + parts[1].charAt(0);
             }
         }
-        return trimmedName.length() >= 2 ?
-                trimmedName.substring(0, 2).toUpperCase() :
-                trimmedName.toUpperCase();
+        return trimmedName.length() >= 2
+                ? trimmedName.substring(0, 2).toUpperCase()
+                : trimmedName.toUpperCase();
     }
 
     @Override
@@ -88,8 +98,8 @@ public class FamilyMemberAdapter extends RecyclerView.Adapter<FamilyMemberAdapte
             super(itemView);
             tvAvatarText = itemView.findViewById(R.id.tv_avatar_text);
             tvMemberName = itemView.findViewById(R.id.tv_member_name);
-            tvRole = itemView.findViewById(R.id.tv_role);
-            tvPoints = itemView.findViewById(R.id.tv_points);
+            tvRole       = itemView.findViewById(R.id.tv_role);
+            tvPoints     = itemView.findViewById(R.id.tv_points);
         }
     }
 }
