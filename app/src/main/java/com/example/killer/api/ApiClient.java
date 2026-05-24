@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
     private static final String TAG = "ApiClient";
-    private static final String DEFAULT_URL = "http://192.168.1.50:8080/api/";
+    private static final String DEFAULT_URL = "https://ourfamily.ourfamily.crazedns.ru/api/";
     private static final String PREFS_NAME  = "server_config";
     private static final String KEY_URL     = "server_url";
 
@@ -53,6 +53,33 @@ public class ApiClient {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
+                // Отключаем автоматические редиректы — обрабатываем их вручную,
+                // чтобы POST не превращался в GET после 301/302
+                .followRedirects(false)
+                .followSslRedirects(false)
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+                    Response response = chain.proceed(original);
+
+                    // Обрабатываем редиректы вручную, сохраняя метод
+                    int maxRedirects = 5;
+                    while ((response.code() == 301 || response.code() == 302
+                            || response.code() == 303 || response.code() == 307
+                            || response.code() == 308) && maxRedirects-- > 0) {
+                        String location = response.header("Location");
+                        if (location == null) break;
+                        response.close();
+                        okhttp3.HttpUrl newUrl = original.url().resolve(location);
+                        if (newUrl == null) break;
+                        // Для 303 меняем на GET (по стандарту), для остальных — сохраняем метод
+                        Request.Builder redirectBuilder = original.newBuilder().url(newUrl);
+                        if (response.code() == 303) {
+                            redirectBuilder.get();
+                        }
+                        response = chain.proceed(redirectBuilder.build());
+                    }
+                    return response;
+                })
                 .addInterceptor(chain -> {
                     Request original = chain.request();
                     SharedPreferences authPrefs = ctx.getSharedPreferences("auth", Context.MODE_PRIVATE);
