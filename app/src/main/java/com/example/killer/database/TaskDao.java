@@ -2,6 +2,7 @@ package com.example.killer.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import androidx.room.Delete;
@@ -22,7 +23,7 @@ public interface TaskDao {
      * Вставка нового задания
      * @param task Объект задания для сохранения
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Task task);
 
     /**

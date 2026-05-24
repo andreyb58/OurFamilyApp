@@ -7,7 +7,7 @@ import java.util.List;
 @Dao
 public interface CalendarDao {
     @Insert
-    void insert(Calendar calendar);
+    long insert(Calendar calendar);
 
     @Update
     void update(Calendar calendar);

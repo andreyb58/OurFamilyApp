@@ -2,6 +2,7 @@ package com.example.killer.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import androidx.room.Delete;
@@ -22,7 +23,7 @@ public interface RewardDao {
      * Вставка новой награды
      * @param reward Объект награды для сохранения
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Reward reward);
 
     /**

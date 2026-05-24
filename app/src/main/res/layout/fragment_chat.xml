@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+ android:background="@color/background">
 
-    <!-- Заголовок -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        android:background="@color/text_primary"
-        android:elevation="4dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="💬 Семейный чат"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+ <!-- Заголовок -->
+ <LinearLayout
+ android:layout_width="match_parent"
+ android:layout_height="56dp"
+ android:orientation="horizontal"
+ android:gravity="center_vertical"
+ android:paddingHorizontal="16dp"
+ android:background="@color/text_primary"
+ android:elevation="4dp">
+ <TextView
+ android:layout_width="0dp"
+ android:layout_height="wrap_content"
+ android:layout_weight="1"
+ android:text=" Семейный чат"
+ android:textColor="#FFFFFF"
+ android:textSize="18sp"
+ android:textStyle="bold"/>
+ </LinearLayout>
 
-    <!-- Текст для пользователей без семьи -->
-    <TextView
-        android:id="@+id/tv_no_family"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:padding="32dp"
-        android:textSize="16sp"
-        android:textColor="#888"
-        android:visibility="gone"/>
+ <!-- Текст для пользователей без семьи -->
+ <TextView
+ android:id="@+id/tv_no_family"
+ android:layout_width="match_parent"
+ android:layout_height="0dp"
+ android:layout_weight="1"
+ android:gravity="center"
+ android:padding="32dp"
+ android:textSize="16sp"
+ android:textColor="#888"
+ android:visibility="gone"/>
 
-    <!-- Список сообщений -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:clipToPadding="false"/>
+ <!-- Список сообщений -->
+ <androidx.recyclerview.widget.RecyclerView
+ android:id="@+id/chat_recycler_view"
+ android:layout_width="match_parent"
+ android:layout_height="0dp"
+ android:layout_weight="1"
+ android:padding="8dp"
+ android:clipToPadding="false"/>
 
-    <!-- Поле ввода -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@color/surface"
-        android:elevation="8dp">
+ <!-- Поле ввода -->
+ <LinearLayout
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:orientation="horizontal"
+ android:padding="8dp"
+ android:background="@color/surface"
+ android:elevation="8dp">
 
-        <EditText
-            android:id="@+id/et_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Написать сообщение..."
-            android:inputType="textMultiLine"
-            android:maxLines="4"
-            android:padding="12dp"
-            android:background="@drawable/bg_card_elevated"
-            android:textSize="15sp"/>
+ <EditText
+ android:id="@+id/et_message"
+ android:layout_width="0dp"
+ android:layout_height="wrap_content"
+ android:layout_weight="1"
+ android:hint="Написать сообщение..."
+ android:inputType="textMultiLine"
+ android:maxLines="4"
+ android:padding="12dp"
+ android:background="@drawable/bg_card_elevated"
+ android:textSize="15sp"/>
 
-        <ImageButton
-            android:id="@+id/btn_send"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_schedule"
-            android:background="@color/colorPrimary"
-            android:tint="#FFFFFF"
-            android:contentDescription="Отправить"
-            android:scaleType="centerInside"/>
-    </LinearLayout>
+ <ImageButton
+ android:id="@+id/btn_send"
+ android:layout_width="48dp"
+ android:layout_height="48dp"
+ android:layout_marginStart="8dp"
+ android:src="@drawable/ic_schedule"
+ android:background="@color/colorPrimary"
+ android:tint="#FFFFFF"
+ android:contentDescription="Отправить"
+ android:scaleType="centerInside"/>
+ </LinearLayout>
 
 </LinearLayout>

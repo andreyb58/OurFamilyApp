@@ -13,10 +13,16 @@ import com.example.killer.fragments.ProfileFragment;
 import com.example.killer.fragments.TasksFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private AuthManager authManager;
+
+    // Кэш фрагментов — чтобы не пересоздавать при переключении вкладок
+    private final Map<Integer, Fragment> fragmentCache = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +39,30 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Запуск с Календаря (первый в меню)
-        loadFragment(new CalendarFragment());
+        loadFragment(R.id.nav_calendar);
         bottomNavigationView.setSelectedItemId(R.id.nav_calendar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            Fragment fragment = null;
-            int id = item.getItemId();
-
-            if      (id == R.id.nav_calendar) fragment = new CalendarFragment();
-            else if (id == R.id.nav_tasks)    fragment = new TasksFragment();
-            else if (id == R.id.nav_chat)     fragment = new ChatFragment();
-            else if (id == R.id.nav_family)   fragment = new FamilyFragment();
-            else if (id == R.id.nav_profile)  fragment = new ProfileFragment();
-
-            if (fragment != null) { loadFragment(fragment); return true; }
-            return false;
+            loadFragment(item.getItemId());
+            return true;
         });
     }
 
-    private void loadFragment(Fragment fragment) {
+    private Fragment getOrCreateFragment(int menuItemId) {
+        if (!fragmentCache.containsKey(menuItemId)) {
+            Fragment f;
+            if      (menuItemId == R.id.nav_calendar) f = new CalendarFragment();
+            else if (menuItemId == R.id.nav_tasks)    f = new TasksFragment();
+            else if (menuItemId == R.id.nav_chat)     f = new ChatFragment();
+            else if (menuItemId == R.id.nav_family)   f = new FamilyFragment();
+            else                                       f = new ProfileFragment();
+            fragmentCache.put(menuItemId, f);
+        }
+        return fragmentCache.get(menuItemId);
+    }
+
+    private void loadFragment(int menuItemId) {
+        Fragment fragment = getOrCreateFragment(menuItemId);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();

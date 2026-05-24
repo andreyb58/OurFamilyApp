@@ -139,7 +139,7 @@
                         android:layout_height="48dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"
-                        android:text="+ Задание"
+                        android:text="Задание +"
                         android:backgroundTint="@color/colorPrimary"
                         android:textColor="@color/background"
                         android:textAllCaps="false"
@@ -152,7 +152,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="Награда"
+                        android:text="Награда +"
                         android:backgroundTint="@color/colorPrimary"
                         android:textColor="@color/background"
                         android:textAllCaps="false"
@@ -206,7 +206,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="✅"
+                        android:text=""
                         android:textSize="24sp"
                         android:layout_marginBottom="8dp" />
 
@@ -249,7 +249,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🏆"
+                        android:text=""
                         android:textSize="24sp"
                         android:layout_marginBottom="8dp" />
 
@@ -291,7 +291,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="📅"
+                        android:text=""
                         android:textSize="24sp"
                         android:layout_marginBottom="8dp" />
 

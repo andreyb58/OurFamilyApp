@@ -16,7 +16,7 @@ public interface CalendarEventDao {
      * Вставка нового события
      * @param event Объект события для сохранения
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(CalendarEvent event);
 
     /**

@@ -54,6 +54,10 @@ public interface ApiService {
     @POST("families/leave")
     Call<Map<String, Object>> leaveFamily(@Body Map<String, Object> request);
 
+    @PUT("families/members/{memberId}/role")
+    Call<Map<String, Object>> changeMemberRole(@Path("memberId") int memberId,
+                                               @Body Map<String, Object> request);
+
     // Логическое обновление/удаление семьи пока не реализовано на сервере
     @POST("families/update")
     Call<Map<String, Object>> updateFamily(@Body Map<String, Object> request);

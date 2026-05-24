@@ -92,7 +92,7 @@ public class AddFamilyDialog extends DialogFragment {
                             }
                         }
 
-                        Toast.makeText(getContext(), "🏠 Семья создана!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), " Семья создана!", Toast.LENGTH_SHORT).show();
                         if (listener != null) listener.onFamilyCreated();
                         dismiss();
                     }
