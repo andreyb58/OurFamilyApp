@@ -69,7 +69,7 @@ public class TasksListFragment extends Fragment {
         tvNoTasks = view.findViewById(R.id.tv_no_tasks);
         tvPointsDisplay = view.findViewById(R.id.tv_points_display);
         if (tvPointsDisplay != null) {
-            tvPointsDisplay.setText(" Ваши очки: " + authManager.getUserPoints());
+            tvPointsDisplay.setText("💰 Ваши очки: " + authManager.getUserPoints());
         }
     }
 
@@ -80,7 +80,7 @@ public class TasksListFragment extends Fragment {
         taskAdapter.setOnTaskCompletedListener((points, newTotalPoints) -> {
             updatePointsDisplay();
             Toast.makeText(getContext(),
-                    " Получено " + points + " очков! Всего: " + newTotalPoints,
+                    "🎉 Получено " + points + " очков! Всего: " + newTotalPoints,
                     Toast.LENGTH_SHORT).show();
             loadTasks();
         });
@@ -90,7 +90,7 @@ public class TasksListFragment extends Fragment {
 
     private void updatePointsDisplay() {
         if (tvPointsDisplay != null && authManager != null) {
-            tvPointsDisplay.setText(" Ваши очки: " + authManager.getUserPoints());
+            tvPointsDisplay.setText("💰 Ваши очки: " + authManager.getUserPoints());
         }
     }
 

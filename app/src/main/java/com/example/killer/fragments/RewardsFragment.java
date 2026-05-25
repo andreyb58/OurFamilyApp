@@ -84,7 +84,7 @@ public class RewardsFragment extends Fragment {
                 int pts = ApiUtils.extractInt(data.get("total_points"));
                 authManager.updateUserPoints(pts);
                 if (tvPointsInfo != null) {
-                    tvPointsInfo.setText(" Ваши очки: " + pts);
+                    tvPointsInfo.setText("🎯 Ваши очки: " + pts);
                 }
             }
 
@@ -92,7 +92,7 @@ public class RewardsFragment extends Fragment {
             public void onError(String error) {
                 // Fallback из SharedPreferences
                 if (tvPointsInfo != null) {
-                    tvPointsInfo.setText(" Ваши очки: " + authManager.getUserPoints());
+                    tvPointsInfo.setText("🎯 Ваши очки: " + authManager.getUserPoints());
                 }
             }
         });

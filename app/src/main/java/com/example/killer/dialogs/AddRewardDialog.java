@@ -100,7 +100,7 @@ public class AddRewardDialog extends DialogFragment {
                     @Override
                     protected void onPostExecute(Void v) {
                         if (btnSave != null) btnSave.setEnabled(true);
-                        Toast.makeText(getContext(), " Награда '" + title + "' добавлена!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "🎁 Награда '" + title + "' добавлена!", Toast.LENGTH_SHORT).show();
                         if (listener != null) listener.onRewardAdded();
                         dismiss();
                     }

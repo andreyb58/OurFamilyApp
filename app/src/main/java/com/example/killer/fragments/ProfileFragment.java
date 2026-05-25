@@ -207,7 +207,7 @@ public class ProfileFragment extends Fragment {
         layout.addView(etNewPass);
 
         new AlertDialog.Builder(requireContext())
-                .setTitle("️ Редактировать профиль")
+                .setTitle("✏️ Редактировать профиль")
                 .setView(layout)
                 .setPositiveButton("Сохранить", (d, w) -> {
                     String newName    = etName.getText().toString().trim();
@@ -239,7 +239,7 @@ public class ProfileFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> {
                         tvUserName.setText(newName);
                         avatarText.setText(newName.substring(0, 1).toUpperCase());
-                        Toast.makeText(getContext(), " Имя обновлено", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "✅ Имя обновлено", Toast.LENGTH_SHORT).show();
                     });
                 }
                 @Override
@@ -265,7 +265,7 @@ public class ProfileFragment extends Fragment {
                 public void onSuccess(Map<String, Object> data) {
                     if (!isAdded()) return;
                     requireActivity().runOnUiThread(() ->
-                            Toast.makeText(getContext(), " Пароль изменён", Toast.LENGTH_SHORT).show());
+                            Toast.makeText(getContext(), "✅ Пароль изменён", Toast.LENGTH_SHORT).show());
                 }
                 @Override
                 public void onError(String error) {

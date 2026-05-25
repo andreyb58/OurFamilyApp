@@ -82,7 +82,7 @@ public class JoinFamilyDialog extends DialogFragment {
                         String famName = data.get("familyName") != null ?
                                 data.get("familyName").toString() : "семье";
                         Toast.makeText(getContext(),
-                                " Вы присоединились к " + famName + "!", Toast.LENGTH_SHORT).show();
+                                "Вы присоединились к " + famName + "!", Toast.LENGTH_SHORT).show();
                         if (listener != null) listener.onFamilyJoined();
                         dismiss();
                     }

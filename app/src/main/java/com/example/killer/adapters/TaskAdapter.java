@@ -68,9 +68,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         String assignedTo = task.getAssignedTo();
         if (assignedTo == null || assignedTo.isEmpty() || assignedTo.equals("null")) {
-            holder.tvAssignedTo.setText(" Для всех");
+            holder.tvAssignedTo.setText("👥 Для всех");
         } else {
-            holder.tvAssignedTo.setText(" Для: " + assignedTo);
+            holder.tvAssignedTo.setText("👤 Для: " + assignedTo);
         }
 
         holder.btnComplete.setOnClickListener(v -> completeTask(task, position));
@@ -211,14 +211,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 notifyItemRangeChanged(position, tasks.size());
 
                 Toast.makeText(context,
-                        " Задание выполнено! +" + result.points + " очков",
+                        "✅ Задание выполнено! +" + result.points + " очков",
                         Toast.LENGTH_SHORT).show();
 
                 if (listener != null) {
                     listener.onTaskCompleted(result.points, result.newTotalPoints);
                 }
             } else {
-                Toast.makeText(context, " " + result.message, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "❌ " + result.message, Toast.LENGTH_LONG).show();
             }
         }
     }

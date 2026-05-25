@@ -18,11 +18,9 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
     private List<CalendarFragment.CalendarDay> days; // Список дней для отображения
     private OnDayClickListener listener; // Слушатель кликов по дням
 
-    /**
-     * Интерфейс для обработки кликов по дням календаря
-     */
+
     public interface OnDayClickListener {
-        void onDayClick(CalendarFragment.CalendarDay day); // Вызывается при клике на день
+        void onDayClick(CalendarFragment.CalendarDay day);
     }
 
     /**
@@ -60,22 +58,17 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
             holder.tvDay.setText(""); // Пустой текст
             holder.itemView.setBackgroundResource(android.R.color.transparent); // Прозрачный фон
         } else {
-            // Устанавливаем номер дня
             holder.tvDay.setText(String.valueOf(day.getDayNumber()));
 
-            // Настраиваем внешний вид в зависимости от состояния дня
             if (day.isToday()) {
-                // Если день сегодняшний - выделяем его
                 holder.itemView.setBackgroundResource(R.drawable.bg_today);
                 holder.tvDay.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.white));
             } else if (day.isSelected()) {
-                // Если день выбран - показываем выделение
                 holder.itemView.setBackgroundResource(R.drawable.bg_selected_day);
-                holder.tvDay.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.colorPrimary));
+                holder.tvDay.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.white));
             } else {
-                // Обычный день
                 holder.itemView.setBackgroundResource(android.R.color.transparent);
-                holder.tvDay.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.black));
+                holder.tvDay.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.colorPrimary));
             }
         }
 
@@ -88,21 +81,14 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
         });
     }
 
-    /**
-     * Возвращает общее количество дней в адаптере
-     * Используется системой для определения размера списка
-     */
+
     @Override
     public int getItemCount() {
         return days.size();
     }
 
-    /**
-     * ViewHolder для кэширования View элементов одного дня
-     * Паттерн ViewHolder улучшает производительность RecyclerView
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDay; // TextView для отображения номера дня
+        TextView tvDay;
 
         public ViewHolder(View itemView) {
             super(itemView);

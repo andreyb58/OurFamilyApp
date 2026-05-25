@@ -17,7 +17,6 @@ public class SyncService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // TODO: Реализовать синхронизацию с нашим сервером
         Log.d(TAG, "Синхронизация запущена");
 
 

@@ -75,7 +75,7 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
             if (h.btnDelete != null) h.btnDelete.setVisibility(View.VISIBLE);
 
             String claimedBy = reward.getClaimedBy() != null ? reward.getClaimedBy() : "Кто-то";
-            h.tvStatus.setText(" Получено: " + claimedBy);
+            h.tvStatus.setText("✅ Получено: " + claimedBy);
         } else {
             h.btnClaim.setVisibility(View.VISIBLE);
             h.tvStatus.setVisibility(View.GONE);
@@ -133,7 +133,7 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
                                 notifyItemChanged(position);
 
                                 Toast.makeText(context,
-                                        " Награда получена! Осталось: " + newPoints + " очков",
+                                        "🎁 Награда получена! Осталось: " + newPoints + " очков",
                                         Toast.LENGTH_SHORT).show();
 
                                 if (listener != null) listener.onRewardClaimed();
